@@ -1,12 +1,20 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, Pressable, Button } from "react-native";
+import React from "react";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   return (
     <View>
       <Text>Profile</Text>
-    </View>
-  )
-}
+      <Pressable>
+        <Button
+          onPress={() => navigation.navigate("Login")}
+          title="Go to LoginScreen"
+          color="#841584"
+        />
+      </Pressable>
 
-export default Profile
+    </View>
+  );
+};
+
+export default Profile;

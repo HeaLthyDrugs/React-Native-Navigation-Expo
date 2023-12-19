@@ -14,6 +14,10 @@ import Test from "../screens/Test";
 import Profile from "../screens/Profile";
 import Settings from "../screens/Drawer/screens/Settings";
 import About from "../screens/Stack/screens/About";
+import { Ionicons } from "@expo/vector-icons";
+import Login from "../screens/Auth/Screens/Login";
+import Signin from "../screens/Auth/Screens/Signin";
+import TestDetail from "../screens/Stack/screens/TestDetail";
 
 //Stack
 const HomeStack = createNativeStackNavigator();
@@ -31,6 +35,8 @@ function HomeStackGroup() {
           headerShown: true,
         }}
       />
+     <HomeStack.Screen name="Login" component={Login}/>
+     <HomeStack.Screen name="TestDetail" component={TestDetail}/>
     </HomeStack.Navigator>
   );
 }
@@ -41,13 +47,34 @@ const Tab = createBottomTabNavigator();
 function TabsGroup() {
   return (
     <Tab.Navigator
-      screenOptions={() => ({
+      screenOptions={({ route }) => ({
         headerTitleAlign: "left",
         tabBarActiveTintColor: "#1DA1F2",
         tabBarInactiveTintColor: "gray",
+        tabBarIcon: ({ color, size }) => {
+          let iconName;
+
+          if (route.name === "Home") {
+            iconName = "home";
+          } else if (route.name === "Test") {
+            iconName = "flask";
+          } else if (route.name === "Profile") {
+            iconName = "person";
+          }
+
+          return <Ionicons name={iconName} size={22} color={color} />;
+        },
       })}
+      tabBarOptions={{
+        activeTintColor: "darkblue", 
+        inactiveTintColor: "gray",
+        style: {
+          borderTopWidth: 0, 
+          elevation: 0, 
+        },
+      }}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
       <Tab.Screen name="Test" component={Test} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
